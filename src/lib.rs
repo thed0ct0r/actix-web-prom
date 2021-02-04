@@ -435,9 +435,10 @@ where
     type Error = S::Error;
     type Future = LoggerResponse<S, B>;
 
-    fn poll_ready(&mut self, ct: &mut Context<'_>) -> Poll<Result<(), Self::Error>> {
-        self.service.poll_ready(ct)
-    }
+    // fn poll_ready(&mut self, ct: &mut Context<'_>) -> Poll<Result<(), Self::Error>> {
+    //     self.service.poll_ready(ct)
+    // }
+    actix_service::always_ready!();
 
     fn call(&mut self, req: ServiceRequest) -> Self::Future {
         LoggerResponse {
